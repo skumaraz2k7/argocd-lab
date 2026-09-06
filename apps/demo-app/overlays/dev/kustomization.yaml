@@ -13,5 +13,7 @@ patches:
         path: /spec/replicas
         value: 2
 
-commonLabels:
-  environment: dev
+labels:
+  - pairs:
+      environment: dev
+    includeSelectors: false
