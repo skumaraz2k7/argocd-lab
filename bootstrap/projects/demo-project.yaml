@@ -17,3 +17,7 @@ spec:
 
     - namespace: demo
       server: https://host.docker.internal:6445
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
