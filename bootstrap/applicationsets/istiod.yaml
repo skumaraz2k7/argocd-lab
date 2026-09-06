@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 
 metadata:
-  name: istio-base
+  name: istiod
   namespace: argocd
 
 spec:
@@ -14,22 +14,22 @@ spec:
 
   template:
     metadata:
-      name: "istio-base-{{name}}"
+      name: "istiod-{{name}}"
 
     spec:
       project: platform-project
 
       sources:
         - repoURL: https://blob.istio.io/istio-release/charts
-          chart: base
+          chart: istiod
           targetRevision: "1.31.0"
 
           helm:
-            releaseName: istio-base
+            releaseName: istiod
 
             valueFiles:
-              - $values/platform/istio/common/base-values.yaml
-              - $values/platform/istio/clusters/{{metadata.labels.environment}}/base-values.yaml
+              - $values/platform/istio/common/istiod-values.yaml
+              - $values/platform/istio/clusters/{{metadata.labels.environment}}/istiod-values.yaml
 
         - repoURL: https://github.com/skumaraz2k7/argocd-lab.git
           targetRevision: main

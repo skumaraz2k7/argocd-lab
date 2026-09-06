@@ -1,8 +1,11 @@
-pilot:
-  replicaCount: 1
-
 meshConfig:
   accessLogFile: /dev/stdout
+
+pilot:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
 
 global:
   proxy:
