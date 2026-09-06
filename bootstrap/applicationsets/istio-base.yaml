@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: istio-base
+  namespace: argocd
+
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            istio-enabled: "true"
+
+  template:
+    metadata:
+      name: "istio-base-{{name}}"
+
+    spec:
+      project: platform-project
+
+      sources:
+        - repoURL: https://istio-release.storage.googleapis.com/charts
+          chart: base
+          targetRevision: "1.31.0"
+
+        - repoURL: https://github.com/skumaraz2k7/argocd-lab.git
+          targetRevision: main
+          ref: values
+
+      destination:
+        server: "{{server}}"
+        namespace: istio-system
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true

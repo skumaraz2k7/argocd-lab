@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: platform-project
+  namespace: argocd
+
+spec:
+  description: Platform components managed by Argo CD
+
+  sourceRepos:
+    - https://github.com/skumaraz2k7/argocd-lab.git
+    - https://istio-release.storage.googleapis.com/charts
+    - https://istio-release.storage.googleapis.com/charts/
+
+  destinations:
+    - namespace: istio-system
+      server: "*"
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"

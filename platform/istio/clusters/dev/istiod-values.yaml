@@ -1,0 +1,13 @@
+pilot:
+  autoscaleEnabled: false
+  replicaCount: 1
+
+meshConfig:
+  accessLogFile: /dev/stdout
+
+global:
+  proxy:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
