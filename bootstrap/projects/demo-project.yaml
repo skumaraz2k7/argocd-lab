@@ -14,3 +14,6 @@ spec:
   destinations:
     - namespace: demo
       server: https://kubernetes.default.svc
+
+    - namespace: demo
+      server: https://host.docker.internal:6445
