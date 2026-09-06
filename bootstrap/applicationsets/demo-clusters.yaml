@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: demo-clusters
+  namespace: argocd
+
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: environment
+              operator: In
+              values:
+                - dev
+                - prod
+
+  template:
+    metadata:
+      name: "demo-{{name}}"
+
+    spec:
+      project: demo-project
+
+      source:
+        repoURL: https://github.com/skumaraz2k7/argocd-lab.git
+        targetRevision: main
+        path: apps/demo-app
+
+      destination:
+        server: "{{server}}"
+        namespace: demo
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
